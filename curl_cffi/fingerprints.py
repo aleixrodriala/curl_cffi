@@ -216,6 +216,14 @@ NATIVE_IMPERSONATE_TARGETS = [
         "h3_fingerprints": False,
     },
     {
+        "browser": "Chrome",
+        "version": "151.0.7922.29",
+        "os": "Android",
+        "os_version": "15",
+        "target_name": "chrome151_android",
+        "h3_fingerprints": True,
+    },
+    {
         "browser": "Edge",
         "version": "99",
         "os": "Windows",
@@ -317,6 +325,22 @@ NATIVE_IMPERSONATE_TARGETS = [
         "os": "iOS",
         "os_version": "26.0",
         "target_name": "safari260_ios",
+        "h3_fingerprints": False,
+    },
+    {
+        "browser": "Safari",
+        "version": "26.5.2",
+        "os": "macOS",
+        "os_version": "Sequoia",
+        "target_name": "safari2652",
+        "h3_fingerprints": False,
+    },
+    {
+        "browser": "Safari",
+        "version": "26.5",
+        "os": "iOS",
+        "os_version": "26.5",
+        "target_name": "safari265_ios",
         "h3_fingerprints": False,
     },
     {

@@ -35,6 +35,7 @@ to specify your own customized fingerprints. See below for details.
 - chrome150_macos :sup:`14` :sup:`15`
 - chrome99_android
 - chrome131_android :sup:`5`
+- chrome151_android :sup:`14` :sup:`17`
 - edge99
 - edge101
 - safari153 :sup:`2` :sup:`9`
@@ -48,6 +49,8 @@ to specify your own customized fingerprints. See below for details.
 - safari260 :sup:`9` :sup:`10`
 - safari260_ios :sup:`9` :sup:`10`
 - safari2601 :sup:`9` :sup:`11`
+- safari2652 :sup:`16`
+- safari265_ios :sup:`16`
 - firefox133 :sup:`5`
 - firefox135 :sup:`7`
 - firefox144 :sup:`11` :sup:`12`
@@ -73,13 +76,17 @@ Notes:
 15. The explicit OS targets reproduce that platform's default headers and client hints.
     ``chrome150`` remains the macOS-compatible default. Their transport fingerprints are
     identical.
+16. Captured from consumer Safari 26.5.2 on macOS Sequoia and Safari 26.5 in
+    the iOS Simulator, then verified by native semantic replay.
+17. Captured from the Google Play consumer build on an Android 15 x86_64
+    emulator, then verified by native semantic replay.
 
 
 Which target version to use?
 ----------------------------
 
 Generally speaking, you should use the latest Chrome or Safari versions. Currently, they're
-``chrome150``, ``safari260`` and ``safari260_ios``. To always impersonate the latest available
+``chrome150``, ``safari2652`` and ``safari265_ios``. To always impersonate the latest available
 browser versions, you can simply use ``chrome``, ``firefox``, ``safari`` and ``chrome_android``, ``safari_ios``.
 
 .. code-block:: python

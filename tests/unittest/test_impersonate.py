@@ -70,6 +70,37 @@ def test_chrome150_os_profiles(server, target, expected_platform, user_agent_fra
     assert user_agent_fragment in headers["User-agent"][0]
 
 
+def test_chrome151_android_profile(server):
+    response = requests.get(
+        str(server.url.copy_with(path="/echo_headers")),
+        impersonate="chrome151_android",
+        http_version=CurlHttpVersion.V1_1,
+    )
+
+    assert response.status_code == 200
+    headers = response.json()
+    assert headers["Sec-ch-ua-platform"] == ['"Android"']
+    assert "Chrome/151.0.0.0" in headers["User-agent"][0]
+
+
+@pytest.mark.parametrize(
+    "target, user_agent_fragment",
+    [
+        ("safari2652", "Version/26.5.2 Safari/605.1.15"),
+        ("safari265_ios", "Version/26.5 Mobile/15E148 Safari/604.1"),
+    ],
+)
+def test_safari265_profiles(server, target, user_agent_fragment):
+    response = requests.get(
+        str(server.url.copy_with(path="/echo_headers")),
+        impersonate=target,
+        http_version=CurlHttpVersion.V1_1,
+    )
+
+    assert response.status_code == 200
+    assert user_agent_fragment in response.json()["User-agent"][0]
+
+
 def test_impersonate_non_exist(server):
     with pytest.raises(requests.RequestsError, match="Impersonating"):
         requests.get(str(server.url), impersonate="edge2131")

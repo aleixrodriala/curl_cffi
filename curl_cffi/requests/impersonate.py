@@ -35,6 +35,7 @@ BrowserTypeLiteral = Literal[
     "chrome150_macos",
     "chrome99_android",
     "chrome131_android",
+    "chrome151_android",
     # Safari
     "safari153",
     "safari155",
@@ -47,6 +48,8 @@ BrowserTypeLiteral = Literal[
     "safari260",
     "safari2601",
     "safari260_ios",
+    "safari2652",
+    "safari265_ios",
     # Firefox
     "firefox133",
     "firefox135",
@@ -85,11 +88,11 @@ BrowserTypeLiteral = Literal[
 
 DEFAULT_CHROME = "chrome150"
 DEFAULT_EDGE = "edge101"
-DEFAULT_SAFARI = "safari2601"
-DEFAULT_SAFARI_IOS = "safari260_ios"
-DEFAULT_SAFARI_BETA = "safari2601"
-DEFAULT_SAFARI_IOS_BETA = "safari260_ios"
-DEFAULT_CHROME_ANDROID = "chrome131_android"
+DEFAULT_SAFARI = "safari2652"
+DEFAULT_SAFARI_IOS = "safari265_ios"
+DEFAULT_SAFARI_BETA = "safari2652"
+DEFAULT_SAFARI_IOS_BETA = "safari265_ios"
+DEFAULT_CHROME_ANDROID = "chrome151_android"
 DEFAULT_FIREFOX = "firefox147"
 DEFAULT_TOR = "tor145"
 
@@ -97,11 +100,11 @@ DEFAULT_TOR = "tor145"
 REAL_TARGET_MAP = {
     "chrome": "chrome150",
     "edge": "edge101",
-    "safari": "safari2601",
-    "safari_ios": "safari260_ios",
-    "safari_beta": "safari2601",
-    "safari_ios_beta": "safari260_ios",
-    "chrome_android": "chrome131_android",
+    "safari": "safari2652",
+    "safari_ios": "safari265_ios",
+    "safari_beta": "safari2652",
+    "safari_ios_beta": "safari265_ios",
+    "chrome_android": "chrome151_android",
     "firefox": "firefox147",
     "tor": "tor145",
 }
@@ -156,6 +159,7 @@ class BrowserType(str, Enum):  # TODO: remove in version 1.x
     chrome150_macos = "chrome150_macos"
     chrome99_android = "chrome99_android"
     chrome131_android = "chrome131_android"
+    chrome151_android = "chrome151_android"
     safari153 = "safari153"
     safari155 = "safari155"
     safari170 = "safari170"
@@ -167,6 +171,8 @@ class BrowserType(str, Enum):  # TODO: remove in version 1.x
     safari260 = "safari260"
     safari260_ios = "safari260_ios"
     safari2601 = "safari2601"
+    safari2652 = "safari2652"
+    safari265_ios = "safari265_ios"
     firefox133 = "firefox133"
     firefox135 = "firefox135"
     firefox144 = "firefox144"
