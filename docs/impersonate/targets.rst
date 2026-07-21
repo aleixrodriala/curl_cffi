@@ -1,7 +1,7 @@
 Supported browser impersonate targets
 -------------------------------------
 
-``curl_cffi`` supports the same browser versions as supported by our `fork of curl-impersonate <https://github.com/lexiforest/curl-impersonate>`_.
+``curl_cffi`` supports the same browser versions as supported by our `fork of curl-impersonate <https://github.com/aleixrodriala/curl-impersonate>`_.
 
 Browser versions will be added **only** when their fingerprints change. If you see a version, e.g.
 ``chrome122``, was skipped, you can simply impersonate it with your own headers and the previous version.
@@ -29,6 +29,10 @@ to specify your own customized fingerprints. See below for details.
 - chrome142 :sup:`11`
 - chrome145 :sup:`13` :sup:`14`
 - chrome146 :sup:`13` :sup:`14`
+- chrome150 :sup:`14` :sup:`15`
+- chrome150_linux :sup:`14` :sup:`15`
+- chrome150_windows :sup:`14` :sup:`15`
+- chrome150_macos :sup:`14` :sup:`15`
 - chrome99_android
 - chrome131_android :sup:`5`
 - edge99
@@ -66,13 +70,16 @@ Notes:
 12. Fixed in version ``0.15.0``, previous User-Agent header was `not correct <https://github.com/lexiforest/curl-impersonate/issues/234>`_.
 13. Added in version ``0.15.0``.
 14. http3 support included.
+15. The explicit OS targets reproduce that platform's default headers and client hints.
+    ``chrome150`` remains the macOS-compatible default. Their transport fingerprints are
+    identical.
 
 
 Which target version to use?
 ----------------------------
 
 Generally speaking, you should use the latest Chrome or Safari versions. Currently, they're
-``chrome146``, ``safari260`` and ``safari260_ios``. To always impersonate the latest available
+``chrome150``, ``safari260`` and ``safari260_ios``. To always impersonate the latest available
 browser versions, you can simply use ``chrome``, ``firefox``, ``safari`` and ``chrome_android``, ``safari_ios``.
 
 .. code-block:: python

@@ -4,8 +4,9 @@ SHELL := bash
 PYTHON ?= python3
 PIP ?= $(PYTHON) -m pip
 
-# this is the upstream libcurl-impersonate version
-VERSION := 2.0.0rc4
+# The libcurl-impersonate release bundled into curl_cffi wheels.
+VERSION ?= 2.0.0-os150.1
+CURL_IMPERSONATE_REPOSITORY ?= aleixrodriala/curl-impersonate
 CURL_VERSION := curl-8_21_0
 
 ifeq ($(OS),Windows_NT)
@@ -20,7 +21,7 @@ $(CURL_VERSION):
 	mv curl-$(CURL_VERSION) $(CURL_VERSION)
 
 curl-impersonate-$(VERSION)/patches: $(CURL_VERSION)
-	curl -L "https://github.com/lexiforest/curl-impersonate/archive/refs/tags/v$(VERSION).tar.gz" \
+	curl -L "https://github.com/$(CURL_IMPERSONATE_REPOSITORY)/archive/refs/tags/v$(VERSION).tar.gz" \
 		-o "curl-impersonate-$(VERSION).tar.gz"
 	tar -xf curl-impersonate-$(VERSION).tar.gz
 

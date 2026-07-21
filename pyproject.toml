@@ -1,6 +1,6 @@
 [project]
 name = "curl_cffi"
-version = "0.16.0b2"
+version = "0.16.0b2+chrome150.1"
 authors = [{ name = "lexiforest", email = "infinitesheldon@gmail.com" }]
 description = "libcurl ffi bindings for Python, with impersonation support."
 license = "MIT"
@@ -8,7 +8,7 @@ license-files = ["LICENSE"]
 dependencies = ["cffi>=2.0.0", "certifi>=2024.2.2"]
 readme = "README.md"
 requires-python = ">=3.10"
-urls = { "repository" = "https://github.com/lexiforest/curl_cffi" }
+urls = { "repository" = "https://github.com/aleixrodriala/curl_cffi" }
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",

@@ -39,6 +39,7 @@ jobs:
       run: ls -l dist
 
     - name: Publish package distributions to PyPI
+      if: github.repository == 'lexiforest/curl_cffi'
       uses: pypa/gh-action-pypi-publish@v1.14.0
       with:
         packages-dir: dist/

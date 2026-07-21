@@ -1,7 +1,11 @@
 Change Log
 ==========
 
-Please see the `GitHub Releases <https://github.com/lexiforest/curl_cffi/releases>`_ page for details.
+Please see the `GitHub Releases <https://github.com/aleixrodriala/curl_cffi/releases>`_ page for details.
+
+- v0.16.0b2+chrome150.1
+    - Bundle the fork's ``libcurl-impersonate`` v2.0.0-os150.1 release.
+    - Add Chrome 150 Linux, Windows, and macOS profiles with HTTP/3 support.
 
 - v0.13
     - Added support for Windows on Arm
@@ -124,4 +128,3 @@ The minimum Python version is now 3.8. Windows fingerprints are wrong in 0.6.x.
     - Add `requests.Session`
     - Breaking change: `Response.cookies` changed from `http.cookies.SimpleCookie` to `curl_cffi.requests.Cookies`
     - Using ABI3 wheels to reduce package size.
-

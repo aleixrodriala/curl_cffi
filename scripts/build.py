@@ -13,8 +13,12 @@ from urllib.request import urlretrieve
 
 from cffi import FFI
 
-# this is the upstream libcurl-impersonate version
-__version__ = "2.0.0rc4"
+# The libcurl-impersonate release bundled into curl_cffi wheels.
+__version__ = "2.0.0-os150.1"
+CURL_IMPERSONATE_REPOSITORY = os.environ.get(
+    "CURL_IMPERSONATE_REPOSITORY", "aleixrodriala/curl-impersonate"
+)
+CURL_IMPERSONATE_VERSION = os.environ.get("CURL_IMPERSONATE_VERSION", __version__)
 
 
 def is_android_env() -> bool:
@@ -87,8 +91,9 @@ def download_libcurl():
     sysname = "linux-" + arch["libc"] if arch["system"] == "Linux" else arch["sysname"]
 
     url = (
-        f"https://github.com/lexiforest/curl-impersonate/releases/download/"
-        f"v{__version__}/libcurl-impersonate-v{__version__}"
+        f"https://github.com/{CURL_IMPERSONATE_REPOSITORY}/releases/download/"
+        f"v{CURL_IMPERSONATE_VERSION}/"
+        f"libcurl-impersonate-v{CURL_IMPERSONATE_VERSION}"
         f".{arch['arch']}-{sysname}.tar.gz"
     )
 

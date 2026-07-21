@@ -32,7 +32,7 @@ curl_cffi's documentation
 curl_cffi is a Python binding for `curl-impersonate fork`_ via `cffi`_. For commercial
 support, visit `impersonate.pro <https://impersonate.pro>`_.
 
-.. _curl-impersonate fork: https://github.com/lexiforest/curl-impersonate
+.. _curl-impersonate fork: https://github.com/aleixrodriala/curl-impersonate
 .. _cffi: https://cffi.readthedocs.io/en/latest/
 
 Unlike other pure Python http clients like ``httpx`` or ``requests``, ``curl_cffi`` can

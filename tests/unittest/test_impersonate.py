@@ -48,6 +48,28 @@ def test_impersonate_without_version(server):
     assert r.status_code == 200
 
 
+@pytest.mark.parametrize(
+    "target, expected_platform, user_agent_fragment",
+    [
+        ("chrome150", "macOS", "Macintosh; Intel Mac OS X"),
+        ("chrome150_linux", "Linux", "X11; Linux x86_64"),
+        ("chrome150_windows", "Windows", "Windows NT 10.0; Win64; x64"),
+        ("chrome150_macos", "macOS", "Macintosh; Intel Mac OS X"),
+    ],
+)
+def test_chrome150_os_profiles(server, target, expected_platform, user_agent_fragment):
+    response = requests.get(
+        str(server.url.copy_with(path="/echo_headers")),
+        impersonate=target,
+        http_version=CurlHttpVersion.V1_1,
+    )
+
+    assert response.status_code == 200
+    headers = response.json()
+    assert headers["Sec-ch-ua-platform"] == [f'"{expected_platform}"']
+    assert user_agent_fragment in headers["User-agent"][0]
+
+
 def test_impersonate_non_exist(server):
     with pytest.raises(requests.RequestsError, match="Impersonating"):
         requests.get(str(server.url), impersonate="edge2131")

@@ -8,7 +8,7 @@
 
 [Documentation](https://curl-cffi.readthedocs.io)
 
-Python binding for [curl-impersonate fork](https://github.com/lexiforest/curl-impersonate)
+Python binding for [curl-impersonate fork](https://github.com/aleixrodriala/curl-impersonate)
 via [cffi](https://cffi.readthedocs.io/en/latest/). For commercial support, visit [impersonate.pro](https://impersonate.pro).
 
 `curl_cffi` is the most popular Python binding for `curl`. Unlike other pure
@@ -61,7 +61,7 @@ No browser automation. Just simple API calls that return the exact cookies and h
 
 `curl-cffi` is part of the impersonate suite.
 
-- [curl-impersonate](https://github.com/lexiforest/curl-impersonate). A curl distribution that impersonates browsers.
+- [curl-impersonate](https://github.com/aleixrodriala/curl-impersonate). A curl distribution that impersonates browsers.
 - [curl_cffi](https://github.com/lexiforest/curl_cffi). Python binding to curl-impersonate.
 - [impers](https://github.com/lexiforest/impers). Node.js binding to curl-impersonate.
 - [impersonate.pro](https://impersonate.pro). Commercial support, more fingerprints and integrated solutions.
@@ -213,7 +213,7 @@ print(r.json())
 
 ### Supported impersonate browsers
 
-`curl_cffi` supports the same browser versions preset as supported by our [fork](https://github.com/lexiforest/curl-impersonate) of [curl-impersonate](https://github.com/lwthiker/curl-impersonate):
+`curl_cffi` supports the same browser versions preset as supported by our [fork](https://github.com/aleixrodriala/curl-impersonate) of [curl-impersonate](https://github.com/lwthiker/curl-impersonate):
 
 The open source version of `curl_cffi` includes versions when we are adding new capabilities for impersonating.
 If you see a version, e.g. `chrome135`, was skipped, it's simply because there's nothing new or we were busy at that time. 
