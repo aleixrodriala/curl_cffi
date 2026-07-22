@@ -230,7 +230,7 @@ We offer the Safari, Chrome, Firefox updates for free and others as part of the 
 
 The current number of fingerprints:
 
-![Preset](https://img.shields.io/badge/Preset_Fingerprints-37-blue)
+![Preset](https://img.shields.io/badge/Preset_Fingerprints-44-blue)
 ![Free](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.impersonate.pro%2Fv1%2Fcounts&query=%24.free&label=Free%20Fingerprints) 
 ![Pro](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.impersonate.pro%2Fv1%2Fcounts&query=%24.all&label=Pro%20Fingerprints)
 

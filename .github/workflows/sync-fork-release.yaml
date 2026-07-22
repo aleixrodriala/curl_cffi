@@ -1,0 +1,118 @@
+name: Sync curl-impersonate release
+run-name: Sync curl-impersonate ${{ github.event.client_payload.curl_version || inputs.curl_version }}
+
+on:
+  repository_dispatch:
+    types:
+    - curl_impersonate_release
+  workflow_dispatch:
+    inputs:
+      curl_version:
+        description: curl-impersonate version without the v prefix
+        required: true
+        type: string
+
+permissions:
+  actions: write
+  contents: write
+
+concurrency:
+  group: sync-curl-impersonate-release
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Update profiles and publish tag
+    runs-on: ubuntu-24.04
+    env:
+      CURL_VERSION: ${{ github.event.client_payload.curl_version || inputs.curl_version }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        ref: main
+
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Validate release input
+      run: |
+        if [[ ! "$CURL_VERSION" =~ ^2\.0\.0-os[0-9]+\.[0-9]+$ ]]; then
+          echo "Invalid curl-impersonate version: $CURL_VERSION" >&2
+          exit 1
+        fi
+
+    - name: Checkout released curl-impersonate profiles
+      run: |
+        git clone \
+          --branch "v${CURL_VERSION}" \
+          --depth 1 \
+          https://github.com/aleixrodriala/curl-impersonate.git \
+          "${RUNNER_TEMP}/curl-impersonate"
+
+    - name: Synchronize release and profiles
+      id: sync
+      run: |
+        python scripts/sync_fork_profiles.py \
+          --source "${RUNNER_TEMP}/curl-impersonate" \
+          --curl-version "$CURL_VERSION" \
+          > "${RUNNER_TEMP}/sync-result.json"
+        cat "${RUNNER_TEMP}/sync-result.json"
+        package_version="$(
+          python -c \
+            'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["version"])'
+        )"
+        echo "package_version=$package_version" >> "$GITHUB_OUTPUT"
+        echo "release_tag=v${package_version/+/-}" >> "$GITHUB_OUTPUT"
+        if git diff --quiet; then
+          echo "changed=false" >> "$GITHUB_OUTPUT"
+        else
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+        fi
+
+    - name: Validate synchronized sources
+      if: steps.sync.outputs.changed == 'true'
+      run: |
+        python -m pip install ruff
+        python scripts/check_preset.py
+        ruff check \
+          scripts/sync_fork_profiles.py \
+          curl_cffi/requests/impersonate.py \
+          curl_cffi/fingerprints.py
+        ruff format --check \
+          scripts/sync_fork_profiles.py \
+          curl_cffi/requests/impersonate.py \
+          curl_cffi/fingerprints.py
+        git diff --check
+
+    - name: Commit synchronized release
+      if: steps.sync.outputs.changed == 'true'
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email \
+          "41898282+github-actions[bot]@users.noreply.github.com"
+        git add \
+          README.md \
+          curl_cffi/fingerprints.py \
+          curl_cffi/requests/impersonate.py \
+          docs/changelog.rst \
+          docs/impersonate/targets.rst \
+          pyproject.toml \
+          scripts/build.py
+        git commit -m "Sync curl-impersonate ${CURL_VERSION}"
+        git push origin HEAD:main
+
+    - name: Tag synchronized release
+      if: steps.sync.outputs.changed == 'true'
+      env:
+        RELEASE_TAG: ${{ steps.sync.outputs.release_tag }}
+      run: |
+        if git rev-parse "$RELEASE_TAG" >/dev/null 2>&1; then
+          echo "Release tag already exists: $RELEASE_TAG" >&2
+          exit 1
+        fi
+        git tag -a "$RELEASE_TAG" -m "$RELEASE_TAG"
+        git push origin "$RELEASE_TAG"
+        gh workflow run release.yaml --ref "$RELEASE_TAG"
