@@ -37,6 +37,18 @@ def version_key(value: str) -> tuple[int, ...]:
     return tuple(int(part) for part in value.split("."))
 
 
+def compute_package_version(current: str, major: str, revision: str) -> str:
+    """Build <upstream-base>.<chrome-major>.<revision>, e.g. 0.16.0.151.2.
+
+    PyPI rejects local version segments (+chromeXXX), so the fork encodes the
+    fingerprint drop as extra release segments after the upstream base version.
+    """
+    base_match = re.match(r"\d+\.\d+\.\d+", current)
+    if base_match is None:
+        raise ValueError(f"Could not parse base version from {current!r}")
+    return f"{base_match.group(0)}.{major}.{revision}"
+
+
 def load_profiles(source: Path) -> list[dict[str, object]]:
     profiles: list[dict[str, object]] = []
     for family in PROFILE_FAMILIES:
@@ -307,9 +319,9 @@ def main() -> int:
     current_match = re.search(r'^version = "([^"]+)"$', pyproject, re.MULTILINE)
     if current_match is None:
         raise ValueError("Could not find project version")
-    base_version = current_match.group(1).split("+", 1)[0]
-    suffix = f"chrome{match.group('major')}.{match.group('revision')}"
-    package_version = f"{base_version}+{suffix}"
+    package_version = compute_package_version(
+        current_match.group(1), match.group("major"), match.group("revision")
+    )
 
     changed: list[str] = []
     impersonate_path = root / "curl_cffi" / "requests" / "impersonate.py"
@@ -379,7 +391,7 @@ def main() -> int:
                 "changed": changed,
                 "curl_version": args.curl_version,
                 "package_version": package_version,
-                "release_tag": f"v{package_version.replace('+', '-')}",
+                "release_tag": f"v{package_version}",
                 "targets": profile_targets,
             },
             indent=2,

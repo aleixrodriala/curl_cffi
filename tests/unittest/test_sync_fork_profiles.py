@@ -44,6 +44,14 @@ def profiles_with_future_targets():
     ]
 
 
+def test_compute_package_version_appends_fingerprint_segments():
+    assert SYNC.compute_package_version("0.16.0.151.2", "152", "1") == "0.16.0.152.1"
+    # Pre-release and local markers from older schemes are stripped.
+    assert SYNC.compute_package_version("0.16.0b2+chrome151.2", "151", "3") == (
+        "0.16.0.151.3"
+    )
+
+
 def test_sync_impersonate_adds_targets_and_updates_aliases():
     original = (ROOT / "curl_cffi" / "requests" / "impersonate.py").read_text()
 

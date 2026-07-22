@@ -1,8 +1,18 @@
 from importlib import metadata
 
 __title__ = "curl_cffi"
-__description__ = metadata.metadata("curl_cffi")["Summary"]
-__version__ = metadata.version("curl_cffi")
+
+# The import package is "curl_cffi", but this fork is distributed on PyPI as
+# "curl-cffi-fingerprints"; fall back to the upstream name for source installs.
+for _dist_name in ("curl-cffi-fingerprints", "curl_cffi"):
+    try:
+        __description__ = metadata.metadata(_dist_name)["Summary"]
+        __version__ = metadata.version(_dist_name)
+        break
+    except metadata.PackageNotFoundError:
+        continue
+else:
+    raise metadata.PackageNotFoundError("curl-cffi-fingerprints")
 
 
 def _resolve_curl_version() -> str:

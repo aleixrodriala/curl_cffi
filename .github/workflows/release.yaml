@@ -21,8 +21,12 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
     needs: build
     runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/curl-cffi-fingerprints
     permissions:
       contents: write
+      id-token: write
     steps:
     - name: Download distributions
       uses: actions/download-artifact@v4.1.7
@@ -33,6 +37,12 @@ jobs:
 
     - name: List distributions
       run: ls -l dist
+
+    - name: Publish package distributions to PyPI
+      if: github.repository == 'aleixrodriala/curl_cffi'
+      uses: pypa/gh-action-pypi-publish@v1.14.0
+      with:
+        packages-dir: dist/
 
     - name: Upload release files
       uses: softprops/action-gh-release@v2
