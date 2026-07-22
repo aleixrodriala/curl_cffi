@@ -85,21 +85,33 @@ def load_profiles(source: Path) -> list[dict[str, object]]:
 
 
 def latest_target(
-    profiles: list[dict[str, object]], browser: str, os_names: set[str]
-) -> str:
+    profiles: list[dict[str, object]],
+    browser: str,
+    os_names: set[str],
+    target_pattern: str | None = None,
+    required: bool = True,
+) -> str | None:
     candidates = [
         profile
         for profile in profiles
         if profile["browser"] == browser and profile["os"] in os_names
     ]
-    if browser == "chrome" and "android" not in os_names:
+    if target_pattern is not None:
+        candidates = [
+            profile
+            for profile in candidates
+            if re.fullmatch(target_pattern, str(profile["target"]))
+        ]
+    elif browser == "chrome" and "android" not in os_names:
         candidates = [
             profile
             for profile in candidates
             if re.fullmatch(r"chrome\d+", str(profile["target"]))
         ]
     if not candidates:
-        raise ValueError(f"No {browser} profile found for {sorted(os_names)}")
+        if required:
+            raise ValueError(f"No {browser} profile found for {sorted(os_names)}")
+        return None
     latest = max(candidates, key=lambda item: version_key(str(item["version"])))
     return str(latest["target"])
 
@@ -189,14 +201,32 @@ def sync_impersonate(text: str, profiles: list[dict[str, object]]) -> str:
         ],
     )
 
+    chrome_default = latest_target(profiles, "chrome", {"mac", "macos"})
+    # Per-OS variants aren't produced for every release; fall back to the plain
+    # chrome default so a missing platform harvest never breaks the sync.
     defaults = {
-        "chrome": latest_target(profiles, "chrome", {"mac", "macos"}),
+        "chrome": chrome_default,
         "chrome_android": latest_target(profiles, "chrome", {"android"}),
+        "chrome_windows": latest_target(
+            profiles, "chrome", {"win64", "windows"}, r"chrome\d+_windows", False
+        )
+        or chrome_default,
+        "chrome_macos": latest_target(
+            profiles, "chrome", {"mac", "macos"}, r"chrome\d+_macos", False
+        )
+        or chrome_default,
+        "chrome_linux": latest_target(
+            profiles, "chrome", {"linux"}, r"chrome\d+_linux", False
+        )
+        or chrome_default,
         "safari": latest_target(profiles, "safari", {"mac", "macos"}),
         "safari_ios": latest_target(profiles, "safari", {"ios"}),
     }
     constants = {
         "DEFAULT_CHROME": defaults["chrome"],
+        "DEFAULT_CHROME_WINDOWS": defaults["chrome_windows"],
+        "DEFAULT_CHROME_MACOS": defaults["chrome_macos"],
+        "DEFAULT_CHROME_LINUX": defaults["chrome_linux"],
         "DEFAULT_CHROME_ANDROID": defaults["chrome_android"],
         "DEFAULT_SAFARI": defaults["safari"],
         "DEFAULT_SAFARI_BETA": defaults["safari"],
@@ -204,7 +234,7 @@ def sync_impersonate(text: str, profiles: list[dict[str, object]]) -> str:
         "DEFAULT_SAFARI_IOS_BETA": defaults["safari_ios"],
     }
     for name, value in constants.items():
-        text = replace_assignment(text, name, value)
+        text = replace_assignment(text, name, str(value))
     aliases = {
         **defaults,
         "safari_beta": defaults["safari"],

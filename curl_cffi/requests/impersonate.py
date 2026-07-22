@@ -56,6 +56,9 @@ BrowserTypeLiteral = Literal[
     "tor145",
     # alias
     "chrome",
+    "chrome_windows",
+    "chrome_macos",
+    "chrome_linux",
     "edge",
     "safari",
     "safari_ios",
@@ -85,6 +88,9 @@ BrowserTypeLiteral = Literal[
 
 
 DEFAULT_CHROME = "chrome150"
+DEFAULT_CHROME_WINDOWS = "chrome150_windows"
+DEFAULT_CHROME_MACOS = "chrome150_macos"
+DEFAULT_CHROME_LINUX = "chrome150_linux"
 DEFAULT_EDGE = "edge101"
 DEFAULT_SAFARI = "safari2652"
 DEFAULT_SAFARI_IOS = "safari265_ios"
@@ -97,6 +103,9 @@ DEFAULT_TOR = "tor145"
 
 REAL_TARGET_MAP = {
     "chrome": "chrome150",
+    "chrome_windows": "chrome150_windows",
+    "chrome_macos": "chrome150_macos",
+    "chrome_linux": "chrome150_linux",
     "edge": "edge101",
     "safari": "safari2652",
     "safari_ios": "safari265_ios",
@@ -111,6 +120,12 @@ REAL_TARGET_MAP = {
 def resolve_latest_browser_type(item):
     if item == "chrome":  # noqa: SIM116
         return DEFAULT_CHROME
+    elif item == "chrome_windows":
+        return DEFAULT_CHROME_WINDOWS
+    elif item == "chrome_macos":
+        return DEFAULT_CHROME_MACOS
+    elif item == "chrome_linux":
+        return DEFAULT_CHROME_LINUX
     elif item == "edge":
         return DEFAULT_EDGE
     elif item == "safari":

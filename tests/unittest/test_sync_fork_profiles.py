@@ -23,6 +23,27 @@ def profiles_with_future_targets():
         {
             "browser": "chrome",
             "h3": True,
+            "os": "win64",
+            "target": "chrome152_windows",
+            "version": "152.0.1.2",
+        },
+        {
+            "browser": "chrome",
+            "h3": True,
+            "os": "mac",
+            "target": "chrome152_macos",
+            "version": "152.0.1.2",
+        },
+        {
+            "browser": "chrome",
+            "h3": True,
+            "os": "linux",
+            "target": "chrome152_linux",
+            "version": "152.0.1.1",
+        },
+        {
+            "browser": "chrome",
+            "h3": True,
             "os": "android",
             "target": "chrome152_android",
             "version": "152.0.1.3",
@@ -63,8 +84,55 @@ def test_sync_impersonate_adds_targets_and_updates_aliases():
     assert '    safari270_ios = "safari270_ios"' in updated
     assert 'DEFAULT_CHROME = "chrome152"' in updated
     assert 'DEFAULT_CHROME_ANDROID = "chrome152_android"' in updated
+    assert 'DEFAULT_CHROME_WINDOWS = "chrome152_windows"' in updated
+    assert 'DEFAULT_CHROME_MACOS = "chrome152_macos"' in updated
+    assert 'DEFAULT_CHROME_LINUX = "chrome152_linux"' in updated
+    assert '    "chrome_windows": "chrome152_windows",' in updated
+    assert '    "chrome_linux": "chrome152_linux",' in updated
     assert 'DEFAULT_SAFARI = "safari270"' in updated
     assert '    "safari_ios": "safari270_ios",' in updated
+
+
+def test_sync_impersonate_falls_back_when_no_per_os_variant():
+    original = (ROOT / "curl_cffi" / "requests" / "impersonate.py").read_text()
+
+    # Only the plain macOS chrome target is available, no _windows/_linux.
+    profiles = [
+        {
+            "browser": "chrome",
+            "h3": True,
+            "os": "mac",
+            "target": "chrome152",
+            "version": "152.0.1.2",
+        },
+        {
+            "browser": "chrome",
+            "h3": True,
+            "os": "android",
+            "target": "chrome152_android",
+            "version": "152.0.1.3",
+        },
+        {
+            "browser": "safari",
+            "h3": False,
+            "os": "macos",
+            "target": "safari270",
+            "version": "27.0",
+        },
+        {
+            "browser": "safari",
+            "h3": False,
+            "os": "ios",
+            "target": "safari270_ios",
+            "version": "27.0",
+        },
+    ]
+
+    updated = SYNC.sync_impersonate(original, profiles)
+
+    # Missing per-OS variants fall back to the plain chrome default.
+    assert 'DEFAULT_CHROME_WINDOWS = "chrome152"' in updated
+    assert 'DEFAULT_CHROME_LINUX = "chrome152"' in updated
 
 
 def test_sync_fingerprints_adds_native_metadata_once():

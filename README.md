@@ -25,9 +25,12 @@ The fingerprints are harvested and shipped by an automated pipeline across two
 repositories:
 
 1. [aleixrodriala/curl-impersonate](https://github.com/aleixrodriala/curl-impersonate)
-   captures profiles from real browsers for each new release — Chrome (desktop
-   and Android) and Safari (macOS and iOS) — as declarative JSON profiles, and
-   publishes a `libcurl-impersonate` build.
+   captures profiles from real browsers for each new release — Chrome on
+   Windows, macOS, Linux and Android, and Safari on macOS and iOS — as
+   declarative JSON profiles, and publishes a `libcurl-impersonate` build. Each
+   profile carries the browser's full header set for that OS (User-Agent,
+   client hints and header order), so an impersonated request matches a real
+   browser beyond just the TLS/HTTP2 fingerprint.
 2. That release triggers a sync workflow in this repository, which adds the new
    targets, bumps the version, builds wheels for all supported platforms, and
    publishes them to PyPI and GitHub Releases.
@@ -73,7 +76,13 @@ import curl_cffi
 r = curl_cffi.get("https://tls.browserleaks.com/json", impersonate="chrome")
 print(r.json())
 
-# Similar rolling aliases: "chrome_android", "safari", "safari_ios"
+# Per-OS rolling aliases: the profile carries the full header set of a real
+# browser on that OS — User-Agent, sec-ch-ua, sec-ch-ua-platform, sec-fetch-*,
+# accept-language and header order all match, not just the TLS fingerprint.
+r = curl_cffi.get("https://tls.browserleaks.com/json", impersonate="chrome_windows")
+# also: "chrome_macos", "chrome_linux", "chrome_android"
+
+# Other rolling aliases: "safari", "safari_ios"
 r = curl_cffi.get("https://tls.browserleaks.com/json", impersonate="safari_ios")
 
 # Or pin a specific version
