@@ -1,6 +1,6 @@
 [project]
 name = "curl-cffi-fingerprints"
-version = "0.16.0.151.2"
+version = "0.16.0.151.3"
 authors = [{ name = "lexiforest", email = "infinitesheldon@gmail.com" }]
 maintainers = [{ name = "Aleix", email = "aleixrodriala@gmail.com" }]
 description = "Drop-in curl_cffi fork with automatically harvested browser fingerprints for new Chrome and Safari releases."
