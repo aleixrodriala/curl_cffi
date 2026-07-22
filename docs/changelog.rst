@@ -3,6 +3,10 @@ Change Log
 
 Please see the `GitHub Releases <https://github.com/aleixrodriala/curl_cffi/releases>`_ page for details.
 
+- v0.16.0b2+chrome151.2
+    - Bundle the fork's ``libcurl-impersonate`` v2.0.0-os151.2 release.
+    - Synchronize verified fork profiles: ``chrome146``, ``chrome150``, ``chrome150_linux``, ``chrome150_macos``, ``chrome150_windows``, ``chrome151_android``, ``safari2652``, ``safari265_ios``.
+
 - v0.16.0b2+chrome151.1
     - Bundle the fork's ``libcurl-impersonate`` v2.0.0-os151.1 release.
     - Add native-replay-verified Safari 26.5.2 macOS and Safari 26.5 iOS
