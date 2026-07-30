@@ -383,6 +383,38 @@ NATIVE_IMPERSONATE_TARGETS = [
         "target_name": "tor145",
         "h3_fingerprints": False,
     },
+    {
+        "browser": "Chrome",
+        "version": "151.0.7922.72",
+        "os": "macOS",
+        "os_version": "",
+        "target_name": "chrome151",
+        "h3_fingerprints": True,
+    },
+    {
+        "browser": "Chrome",
+        "version": "151.0.7922.71",
+        "os": "Linux",
+        "os_version": "",
+        "target_name": "chrome151_linux",
+        "h3_fingerprints": True,
+    },
+    {
+        "browser": "Chrome",
+        "version": "151.0.7922.72",
+        "os": "macOS",
+        "os_version": "",
+        "target_name": "chrome151_macos",
+        "h3_fingerprints": True,
+    },
+    {
+        "browser": "Chrome",
+        "version": "151.0.7922.72",
+        "os": "Windows",
+        "os_version": "",
+        "target_name": "chrome151_windows",
+        "h3_fingerprints": True,
+    },
 ]
 
 

@@ -57,6 +57,11 @@ to specify your own customized fingerprints. See below for details.
 - firefox147 :sup:`13` :sup:`14`
 - tor145 :sup:`8`
 
+- chrome151
+- chrome151_linux
+- chrome151_macos
+- chrome151_windows
+
 Notes:
 
 1. Added in version ``0.6.0``.
@@ -86,7 +91,7 @@ Which target version to use?
 ----------------------------
 
 Generally speaking, you should use the latest Chrome or Safari versions. Currently, they're
-``chrome150``, ``safari2652`` and ``safari265_ios``. To always impersonate the latest available
+``chrome151``, ``safari2652`` and ``safari265_ios``. To always impersonate the latest available
 browser versions, you can simply use ``chrome``, ``firefox``, ``safari`` and ``chrome_android``, ``safari_ios``.
 
 .. code-block:: python
