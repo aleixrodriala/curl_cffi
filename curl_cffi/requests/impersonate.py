@@ -38,6 +38,12 @@ BrowserTypeLiteral = Literal[
     "chrome151_linux",
     "chrome151_macos",
     "chrome151_windows",
+    "chrome152",
+    "chrome152_android",
+    "chrome152_linux",
+    "chrome152_macos",
+    "chrome152_macos_arm64",
+    "chrome152_windows",
     # Safari
     "safari153",
     "safari155",
@@ -91,31 +97,31 @@ BrowserTypeLiteral = Literal[
 ]
 
 
-DEFAULT_CHROME = "chrome151"
-DEFAULT_CHROME_WINDOWS = "chrome151_windows"
-DEFAULT_CHROME_MACOS = "chrome151_macos"
-DEFAULT_CHROME_LINUX = "chrome151_linux"
+DEFAULT_CHROME = "chrome152"
+DEFAULT_CHROME_WINDOWS = "chrome152_windows"
+DEFAULT_CHROME_MACOS = "chrome152_macos"
+DEFAULT_CHROME_LINUX = "chrome152_linux"
 DEFAULT_EDGE = "edge101"
 DEFAULT_SAFARI = "safari2652"
 DEFAULT_SAFARI_IOS = "safari265_ios"
 DEFAULT_SAFARI_BETA = "safari2652"
 DEFAULT_SAFARI_IOS_BETA = "safari265_ios"
-DEFAULT_CHROME_ANDROID = "chrome151_android"
+DEFAULT_CHROME_ANDROID = "chrome152_android"
 DEFAULT_FIREFOX = "firefox147"
 DEFAULT_TOR = "tor145"
 
 
 REAL_TARGET_MAP = {
-    "chrome": "chrome151",
-    "chrome_windows": "chrome151_windows",
-    "chrome_macos": "chrome151_macos",
-    "chrome_linux": "chrome151_linux",
+    "chrome": "chrome152",
+    "chrome_windows": "chrome152_windows",
+    "chrome_macos": "chrome152_macos",
+    "chrome_linux": "chrome152_linux",
     "edge": "edge101",
     "safari": "safari2652",
     "safari_ios": "safari265_ios",
     "safari_beta": "safari2652",
     "safari_ios_beta": "safari265_ios",
-    "chrome_android": "chrome151_android",
+    "chrome_android": "chrome152_android",
     "firefox": "firefox147",
     "tor": "tor145",
 }
@@ -181,6 +187,12 @@ class BrowserType(str, Enum):  # TODO: remove in version 1.x
     chrome151_linux = "chrome151_linux"
     chrome151_macos = "chrome151_macos"
     chrome151_windows = "chrome151_windows"
+    chrome152 = "chrome152"
+    chrome152_android = "chrome152_android"
+    chrome152_linux = "chrome152_linux"
+    chrome152_macos = "chrome152_macos"
+    chrome152_macos_arm64 = "chrome152_macos_arm64"
+    chrome152_windows = "chrome152_windows"
     safari153 = "safari153"
     safari155 = "safari155"
     safari170 = "safari170"
