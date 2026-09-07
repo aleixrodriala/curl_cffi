@@ -58,6 +58,7 @@ BrowserTypeLiteral = Literal[
     "safari260_ios",
     "safari2652",
     "safari265_ios",
+    "safari2661",
     # Firefox
     "firefox133",
     "firefox135",
@@ -102,9 +103,9 @@ DEFAULT_CHROME_WINDOWS = "chrome152_windows"
 DEFAULT_CHROME_MACOS = "chrome152_macos"
 DEFAULT_CHROME_LINUX = "chrome152_linux"
 DEFAULT_EDGE = "edge101"
-DEFAULT_SAFARI = "safari2652"
+DEFAULT_SAFARI = "safari2661"
 DEFAULT_SAFARI_IOS = "safari265_ios"
-DEFAULT_SAFARI_BETA = "safari2652"
+DEFAULT_SAFARI_BETA = "safari2661"
 DEFAULT_SAFARI_IOS_BETA = "safari265_ios"
 DEFAULT_CHROME_ANDROID = "chrome152_android"
 DEFAULT_FIREFOX = "firefox147"
@@ -117,9 +118,9 @@ REAL_TARGET_MAP = {
     "chrome_macos": "chrome152_macos",
     "chrome_linux": "chrome152_linux",
     "edge": "edge101",
-    "safari": "safari2652",
+    "safari": "safari2661",
     "safari_ios": "safari265_ios",
-    "safari_beta": "safari2652",
+    "safari_beta": "safari2661",
     "safari_ios_beta": "safari265_ios",
     "chrome_android": "chrome152_android",
     "firefox": "firefox147",
@@ -206,6 +207,7 @@ class BrowserType(str, Enum):  # TODO: remove in version 1.x
     safari2601 = "safari2601"
     safari2652 = "safari2652"
     safari265_ios = "safari265_ios"
+    safari2661 = "safari2661"
     firefox133 = "firefox133"
     firefox135 = "firefox135"
     firefox144 = "firefox144"

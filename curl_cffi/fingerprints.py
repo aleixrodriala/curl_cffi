@@ -463,6 +463,14 @@ NATIVE_IMPERSONATE_TARGETS = [
         "target_name": "chrome152_windows",
         "h3_fingerprints": True,
     },
+    {
+        "browser": "Safari",
+        "version": "26.6.1",
+        "os": "macOS",
+        "os_version": "",
+        "target_name": "safari2661",
+        "h3_fingerprints": False,
+    },
 ]
 
 
