@@ -6,6 +6,7 @@ import argparse
 import ast
 import json
 import re
+import subprocess
 from pathlib import Path
 
 
@@ -47,6 +48,45 @@ def compute_package_version(current: str, major: str, revision: str) -> str:
     if base_match is None:
         raise ValueError(f"Could not parse base version from {current!r}")
     return f"{base_match.group(0)}.{major}.{revision}"
+
+
+def available_package_version(root: Path, current: str, curl_version: str) -> str:
+    """Preserve published tags and allocate a monotonic wrapper release.
+
+    Wrapper-only releases can consume the native release's numeric suffix.
+    v0.16.0.151.3 already bundled os151.2 when os151.3 arrived; reusing that
+    tag advanced main but left PyPI on the old native library.
+    """
+    match = CURL_VERSION_PATTERN.fullmatch(curl_version)
+    if match is None:
+        raise ValueError(f"Unsupported curl-impersonate version: {curl_version}")
+    candidate = max(
+        current,
+        compute_package_version(current, match.group("major"), match.group("revision")),
+        key=version_key,
+    )
+    while True:
+        tag = f"v{candidate}"
+        exists = subprocess.run(
+            ["git", "-C", str(root), "rev-parse", "--verify", f"refs/tags/{tag}"],
+            capture_output=True,
+        )
+        if exists.returncode:
+            return candidate
+        released = subprocess.run(
+            ["git", "-C", str(root), "show", f"{tag}:scripts/build.py"],
+            capture_output=True,
+            text=True,
+        )
+        if released.returncode == 0 and re.search(
+            rf'^__version__ = "{re.escape(curl_version)}"$',
+            released.stdout,
+            re.MULTILINE,
+        ):
+            return candidate
+        segments = list(version_key(candidate))
+        segments[-1] += 1
+        candidate = ".".join(map(str, segments))
 
 
 def load_profiles(source: Path) -> list[dict[str, object]]:
@@ -349,8 +389,8 @@ def main() -> int:
     current_match = re.search(r'^version = "([^"]+)"$', pyproject, re.MULTILINE)
     if current_match is None:
         raise ValueError("Could not find project version")
-    package_version = compute_package_version(
-        current_match.group(1), match.group("major"), match.group("revision")
+    package_version = available_package_version(
+        root, current_match.group(1), args.curl_version
     )
 
     changed: list[str] = []

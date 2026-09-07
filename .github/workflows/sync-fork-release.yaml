@@ -39,6 +39,7 @@ jobs:
 
     - name: Validate release input
       run: |
+        python scripts/test_sync_fork_profiles.py
         if [[ ! "$CURL_VERSION" =~ ^2\.0\.0-os[0-9]+\.[0-9]+$ ]]; then
           echo "Invalid curl-impersonate version: $CURL_VERSION" >&2
           exit 1
@@ -105,14 +106,16 @@ jobs:
         git push origin HEAD:main
 
     - name: Tag synchronized release
-      if: steps.sync.outputs.changed == 'true'
       env:
         RELEASE_TAG: ${{ steps.sync.outputs.release_tag }}
       run: |
         if git rev-parse "$RELEASE_TAG" >/dev/null 2>&1; then
-          echo "Release tag already exists: $RELEASE_TAG" >&2
-          exit 1
+          echo "Release tag already exists: $RELEASE_TAG; checking publication"
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            exit 0
+          fi
+        else
+          git tag -a "$RELEASE_TAG" -m "$RELEASE_TAG"
+          git push origin "$RELEASE_TAG"
         fi
-        git tag -a "$RELEASE_TAG" -m "$RELEASE_TAG"
-        git push origin "$RELEASE_TAG"
         gh workflow run release.yaml --ref "$RELEASE_TAG"
