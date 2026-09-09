@@ -14,7 +14,7 @@ from urllib.request import urlretrieve
 from cffi import FFI
 
 # The libcurl-impersonate release bundled into curl_cffi wheels.
-__version__ = "2.0.0-os152.3"
+__version__ = "2.0.0-os153.1"
 CURL_IMPERSONATE_REPOSITORY = os.environ.get(
     "CURL_IMPERSONATE_REPOSITORY", "aleixrodriala/curl-impersonate"
 )

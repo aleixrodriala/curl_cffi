@@ -71,6 +71,12 @@ to specify your own customized fingerprints. See below for details.
 
 - safari2661
 
+- chrome153
+- chrome153_linux
+- chrome153_macos
+- chrome153_macos_arm64
+- chrome153_windows
+
 Notes:
 
 1. Added in version ``0.6.0``.
@@ -100,7 +106,7 @@ Which target version to use?
 ----------------------------
 
 Generally speaking, you should use the latest Chrome or Safari versions. Currently, they're
-``chrome152``, ``safari2661`` and ``safari265_ios``. To always impersonate the latest available
+``chrome153``, ``safari2661`` and ``safari265_ios``. To always impersonate the latest available
 browser versions, you can simply use ``chrome``, ``firefox``, ``safari`` and ``chrome_android``, ``safari_ios``.
 
 .. code-block:: python
