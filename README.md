@@ -2,7 +2,7 @@
 
 [![PyPI version](https://img.shields.io/pypi/v/curl-cffi-fingerprints)](https://pypi.org/project/curl-cffi-fingerprints/)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/curl-cffi-fingerprints)
-![Preset](https://img.shields.io/badge/Preset_Fingerprints-60-blue)
+![Preset](https://img.shields.io/badge/Preset_Fingerprints-61-blue)
 
 A drop-in fork of [curl_cffi](https://github.com/lexiforest/curl_cffi) whose one
 job is keeping browser fingerprints fresh: every new Chrome and Safari release

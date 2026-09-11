@@ -77,6 +77,8 @@ to specify your own customized fingerprints. See below for details.
 - chrome153_macos_arm64
 - chrome153_windows
 
+- chrome153_android
+
 Notes:
 
 1. Added in version ``0.6.0``.

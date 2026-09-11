@@ -49,6 +49,7 @@ BrowserTypeLiteral = Literal[
     "chrome153_macos",
     "chrome153_macos_arm64",
     "chrome153_windows",
+    "chrome153_android",
     # Safari
     "safari153",
     "safari155",
@@ -112,7 +113,7 @@ DEFAULT_SAFARI = "safari2661"
 DEFAULT_SAFARI_IOS = "safari265_ios"
 DEFAULT_SAFARI_BETA = "safari2661"
 DEFAULT_SAFARI_IOS_BETA = "safari265_ios"
-DEFAULT_CHROME_ANDROID = "chrome152_android"
+DEFAULT_CHROME_ANDROID = "chrome153_android"
 DEFAULT_FIREFOX = "firefox147"
 DEFAULT_TOR = "tor145"
 
@@ -127,7 +128,7 @@ REAL_TARGET_MAP = {
     "safari_ios": "safari265_ios",
     "safari_beta": "safari2661",
     "safari_ios_beta": "safari265_ios",
-    "chrome_android": "chrome152_android",
+    "chrome_android": "chrome153_android",
     "firefox": "firefox147",
     "tor": "tor145",
 }
@@ -204,6 +205,7 @@ class BrowserType(str, Enum):  # TODO: remove in version 1.x
     chrome153_macos = "chrome153_macos"
     chrome153_macos_arm64 = "chrome153_macos_arm64"
     chrome153_windows = "chrome153_windows"
+    chrome153_android = "chrome153_android"
     safari153 = "safari153"
     safari155 = "safari155"
     safari170 = "safari170"
