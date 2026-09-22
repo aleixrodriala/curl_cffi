@@ -519,6 +519,46 @@ NATIVE_IMPERSONATE_TARGETS = [
         "target_name": "chrome153_android",
         "h3_fingerprints": True,
     },
+    {
+        "browser": "Chrome",
+        "version": "154.0.8037.58",
+        "os": "macOS",
+        "os_version": "",
+        "target_name": "chrome154",
+        "h3_fingerprints": True,
+    },
+    {
+        "browser": "Chrome",
+        "version": "154.0.8037.57",
+        "os": "Linux",
+        "os_version": "",
+        "target_name": "chrome154_linux",
+        "h3_fingerprints": True,
+    },
+    {
+        "browser": "Chrome",
+        "version": "154.0.8037.58",
+        "os": "macOS",
+        "os_version": "",
+        "target_name": "chrome154_macos",
+        "h3_fingerprints": True,
+    },
+    {
+        "browser": "Chrome",
+        "version": "154.0.8037.58",
+        "os": "Mac_Arm64",
+        "os_version": "",
+        "target_name": "chrome154_macos_arm64",
+        "h3_fingerprints": True,
+    },
+    {
+        "browser": "Chrome",
+        "version": "154.0.8037.58",
+        "os": "Windows",
+        "os_version": "",
+        "target_name": "chrome154_windows",
+        "h3_fingerprints": True,
+    },
 ]
 
 
